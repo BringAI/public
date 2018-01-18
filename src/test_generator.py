@@ -1,3 +1,4 @@
+# Generates tests of given size
 # input: n - ilość punktów
 # output: n krotek (skąd, dokąd, godzina odbioru, godzina dostawy)
 # warunki:
@@ -68,17 +69,33 @@ def packJob(job):
     origin, destin, _, _ = job
     return (printAddress(origin), printAddress(destin))
 
+# Pack into tuple
+def toTuple(job):
+    origin, destin, start_t, end_t = job
+    return (printAddress(origin), printAddress(destin), start_t, end_t)
+
 # Infinite loop
 def main():
     addresses = loadAddresses()
 
+    j = 0
     while (True):
         n = int(input("Liczba zleceń: "))
 
+        jobs = []
         jobs = generateJobs(n, addresses)
+        qtuple = []
 
         for i in range(len(jobs)):
             printJob(jobs[i])
+            qtuple.append(toTuple(jobs[i]))
+
+        with open('test' + str(j) + '.csv', 'w') as testfile:
+            wr = csv.writer(testfile)
+            for row in qtuple:
+                wr.writerow(row)
+
+        j = j + 1
 
 if __name__ == '__main__':
     main()
