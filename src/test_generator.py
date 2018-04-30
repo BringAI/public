@@ -12,7 +12,7 @@ import csv
 key = 'AIzaSyCvzPn7AMvM3Jd8EneaCAl5pOL94T341ww'
 START_TIME_MINUTES = 9  * 60
 END_TIME_MINUTES   = 21 * 60
-address_file = "addresses_warsaw.csv"
+address_file = "../data/raw/addresses_warsaw.csv"
 
 # Generate random iterators
 def randomJob(addr_low, addr_high, time_low, time_high):
@@ -90,7 +90,7 @@ def main():
             printJob(jobs[i])
             qtuple.append(toTuple(jobs[i]))
 
-        with open('test' + str(j) + '.csv', 'w') as testfile:
+        with open('../data/test/test' + str(j) + '.csv', 'w') as testfile:
             wr = csv.writer(testfile)
             for row in qtuple:
                 wr.writerow(row)
